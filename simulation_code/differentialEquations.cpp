@@ -47,7 +47,11 @@ void GravitationalIntegrator:: nextStepAll(){
 
 void GravitationalIntegrator:: solve(const valtype totalProgTime, const string filename){
     bool writeFlag = filename=="" ? false : true;
-    ofstream my_file(filename); 
+    bool conservation = 1;
+    ofstream my_file(filename);
+    ofstream mom("momentum.txt");
+    ofstream en("energy.txt");
+
     if(writeFlag) {
         //my_file<<"x1,y1,z1,,,x2,y2,z2,,,x3,y3,z3,,,"<<endl; //scam
         for(int i=1;i<=(this->bodies).size();i++){
@@ -55,9 +59,20 @@ void GravitationalIntegrator:: solve(const valtype totalProgTime, const string f
         }
         my_file<<"\n";
     }
+
+    if(conservation){
+        mom <<"x"<<",y"<<",z"<<",\n";
+        en << 0 << "\n";                //not correct, change later
+    }
     while(this->progTime<totalProgTime){
         if(writeFlag) this->writeBodyCoords(my_file, ",", "", "\n");
+        if(conservation) this->writeTotalMomentum(mom, ",", ",","","\n");
+        if(conservation) this->writeTotalEnergy(en, ",", ",","","\n");
         nextStepAll();
     }
     if(writeFlag) this->writeBodyCoords(my_file, ",", "", "\n");
 }
+
+
+
+// Now we have output values in a different file

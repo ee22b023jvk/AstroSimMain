@@ -35,3 +35,43 @@ void GravitationalSystem:: writeBodyCoords(ofstream& outstream, string coordSep,
     outstream<<end;
 }
 
+
+void GravitationalSystem:: writeTotalMomentum(ofstream& outstream, const string& sep, string coordSep, string bodySep, string end )const {
+    vector <valtype> total(3);
+    for(auto& body:bodies){
+        for(int i = 0; i < 3; i++){
+            total[i] += body.momentum[i];
+        }
+    }
+
+    for(auto& totalmomentum : total){
+        outstream << totalmomentum << sep;
+    }
+    outstream<<end;
+}
+
+void GravitationalSystem:: writeTotalEnergy(ofstream& outstream, const string& sep, string coordSep, string bodySep, string end )const {
+    valtype total_energy = 0;
+
+    for(auto& body:bodies){
+        for(auto& mom : body.momentum){
+            total_energy += (pow(mom, 2)/(2 * body.mass));
+        }
+    }
+
+    for(int i = 0; i < bodies.size(); i++){
+        for(int j = i + 1; j < bodies.size(); j++){
+            valtype dist = 0;
+            for(int k = 0; k < 3; k++){
+                dist += pow(bodies[i].position[k] - bodies[j].position[k], 2);
+            }
+
+            dist = Q_rsqrt(dist);
+            total_energy -= (G * bodies[i].mass * bodies[j].mass)/dist;
+        }
+    }
+
+    outstream << total_energy;
+    outstream<< end;
+}
+
