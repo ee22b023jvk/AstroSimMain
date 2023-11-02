@@ -36,6 +36,8 @@ void GravitationalSystem:: writeBodyCoords(ofstream& outstream, string coordSep,
 }
 
 
+
+//Total Momentum Function
 void GravitationalSystem:: writeTotalMomentum(ofstream& outstream, const string& sep, string coordSep, string bodySep, string end )const {
     vector <valtype> total(3);
     for(auto& body:bodies){
@@ -49,6 +51,8 @@ void GravitationalSystem:: writeTotalMomentum(ofstream& outstream, const string&
     }
     outstream<<end;
 }
+
+//Total Energy
 
 void GravitationalSystem:: writeTotalEnergy(ofstream& outstream, const string& sep, string coordSep, string bodySep, string end )const {
     valtype total_energy = 0;
