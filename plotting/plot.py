@@ -8,7 +8,7 @@ filename = "nbodyoutput.txt"
 if(n>1):
     filename = sys.argv[1]
 
-data = pd.read_csv(filename);
+data = pd.read_csv(filename)
 
 i = 1
 while(True):
@@ -16,7 +16,7 @@ while(True):
         plt.plot(data["x"+str(i)],data["y"+str(i)])
         i+=1
     except:
-        break;
+        break
 plt.show()
 
 
