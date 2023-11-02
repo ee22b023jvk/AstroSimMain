@@ -25,6 +25,8 @@ plot:
 clean:
 	rm -f assemblies/*.o
 	rm -f outfile.txt
+	rm -f momentum.txt
+	rm -f energy.txt
 	rm -f sim.exe
 
 runplot: run plot
