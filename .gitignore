@@ -1,2 +1,4 @@
 .vscode
-assemblies
+**/*.o
+**/.DS_Store
+outfile.txt
